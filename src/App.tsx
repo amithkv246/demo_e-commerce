@@ -1,38 +1,53 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import CardCom from './components/card'
-import FooterCom from './components/footer'
-import NavbarCom from './components/navbar'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import EkartPage from './pages/ekartPage'
 
 function App() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState<string[]>([])
+  const [isMobile, setIsMobile] = useState<boolean>(false)
+  const [cartDetails, setCartDetails] = useState<string[]>([])
 
+  useEffect(() => {
+    const checkevent = () => {
+      if (window.innerWidth <= 678) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
+  
+    checkevent(); // Check on initial render
+    window.addEventListener("resize", checkevent);
+  
+    // Cleanup listener on unmount
+    return () => {
+      window.removeEventListener("resize", checkevent);
+    };
+  }, []);
+  
 
+  useEffect(()=>{
+    console.log(isMobile);
+    console.log(window.innerWidth);
+    
+  },[isMobile])
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then(res => res.json())
       .then(json => setProducts(json))
   }, [])
-
-
-  // useEffect(() => {
-  //   console.log(products);
-  //   alert("values got")
-  // }, [products])
   
+  
+
   return (
     <>
-      <NavbarCom />
-      <div className='container d-flex flex-row flex-wrap gap-3 p-3'>
-        {
-          products.map((product, index) => (
-            <CardCom item={product} />
-          ))
-        }
-      </div>
-
-      <footer><FooterCom /></footer>
+      <BrowserRouter>
+        <Routes>
+          <Route path={"/"} element={<EkartPage isMobile={isMobile} products={products} setCartDetails={setCartDetails} />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
