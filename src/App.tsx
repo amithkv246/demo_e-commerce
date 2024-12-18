@@ -4,7 +4,16 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import EkartPage from './pages/ekartPage'
 
 function App() {
-  const [products, setProducts] = useState<string[]>([])
+
+  type Product = {
+    id?: number,
+    image?: string,
+    title?: string,
+    description?: string,
+    price?: number
+  }
+
+  const [products, setProducts] = useState<Product[]>([])
   const [isMobile, setIsMobile] = useState<boolean>(false)
   const [cartDetails, setCartDetails] = useState<string[]>([])
 
@@ -16,30 +25,25 @@ function App() {
         setIsMobile(false);
       }
     };
-  
-    checkevent(); // Check on initial render
+
+    checkevent();
     window.addEventListener("resize", checkevent);
-  
-    // Cleanup listener on unmount
+
     return () => {
       window.removeEventListener("resize", checkevent);
     };
   }, []);
-  
-
-  useEffect(()=>{
-    console.log(isMobile);
-    console.log(window.innerWidth);
-    
-  },[isMobile])
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then(res => res.json())
       .then(json => setProducts(json))
   }, [])
-  
-  
+
+  useEffect(() => {
+    console.log(products);
+  }, [products])
+
 
   return (
     <>
