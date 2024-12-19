@@ -1,13 +1,13 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 interface Heading2Props {
-  value:string;
+  value: string;
 }
 
 const Heading2: FC<Heading2Props> = ({ value }) => {
   return (
     <>
-      <h2>{value}</h2>
+      <h2 className='container fs-1 mt-5 mb-3' >{value}</h2>
     </>
   );
 };

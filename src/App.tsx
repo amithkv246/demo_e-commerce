@@ -1,21 +1,13 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import EkartPage from './pages/ekartPage'
+import HomePage from './pages/homePage'
+import CartPage from './pages/cartPage'
 
 function App() {
 
-  type Product = {
-    id?: number,
-    image?: string,
-    title?: string,
-    description?: string,
-    price?: number
-  }
-
   const [products, setProducts] = useState<Product[]>([])
   const [isMobile, setIsMobile] = useState<boolean>(false)
-  const [cartDetails, setCartDetails] = useState<string[]>([])
 
   useEffect(() => {
     const checkevent = () => {
@@ -40,16 +32,16 @@ function App() {
       .then(json => setProducts(json))
   }, [])
 
-  useEffect(() => {
-    console.log(products);
-  }, [products])
-
+  // useEffect(() => {
+  //   console.log(products);
+  // }, [products])
 
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path={"/"} element={<EkartPage isMobile={isMobile} products={products} setCartDetails={setCartDetails} />} />
+          <Route path={"/"} element={<HomePage isMobile={isMobile} products={products} />} />
+          <Route path={"/Cart"} element={<CartPage isMobile={isMobile} />} />
         </Routes>
       </BrowserRouter>
     </>

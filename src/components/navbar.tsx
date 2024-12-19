@@ -1,23 +1,33 @@
-import React, { FC } from 'react';
-import Button from 'react-bootstrap/Button';
+import { FC } from 'react';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import ButtonCom from './button';
+import InputGroupCom from './inputGroup';
 
 interface NavbarComProps {
-
+  handleCartButton?: () => void
 }
 
-const NavbarCom: FC<NavbarComProps> = ({ }) => {
+const NavbarCom: FC<NavbarComProps> = ({ handleCartButton }) => {
   return (
     <>
       <Navbar expand={false} className="bg-body-tertiary mb-3">
-        <Container fluid>
-          <Navbar.Brand href="#">Navbar Offcanvas</Navbar.Brand>
-          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${false}`} />
+        <Container fluid className='d-flex flex-row justify-content-around'>
+          <div className='d-flex gap-5'>
+            <Navbar.Brand href="#" className='text-warning fs-1 fw-bold'><span className='text-primary'>Quick</span>Mart</Navbar.Brand>
+            <InputGroupCom type='text' placeholder='Search for Products, Brands and More' bs='mt-3 mb-3' />
+          </div>
+          <div>
+            <ButtonCom
+              value={<div className='d-flex align-items-center gap-2'><i className='fa-solid fa-cart-shopping' style={{ color: '#000000' }} ></i><span className='text-dark fw-bold'>Cart</span></div>}
+              bs='mt-3 mb-3'
+              onClick={handleCartButton}
+            />
+          </div>
+          <div><Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${false}`} /></div>
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${false}`}
             aria-labelledby={`offcanvasNavbarLabel-expand-${false}`}
@@ -25,36 +35,17 @@ const NavbarCom: FC<NavbarComProps> = ({ }) => {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${false}`}>
-                Offcanvas
+                Other Options
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 <Nav.Link href="#action1">Home</Nav.Link>
-                <Nav.Link href="#action2">Link</Nav.Link>
-                <NavDropdown
-                  title="Dropdown"
-                  id={`offcanvasNavbarDropdown-expand-${false}`}
-                >
-                  <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action4">
-                    Another action
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action5">
-                    Something else here
-                  </NavDropdown.Item>
+                <Nav.Link href="#action2">Notification Preferences</Nav.Link>
+                <NavDropdown title={("Help")} id={`offcanvasNavbarDropdown-expand-${false}`} >
+                  <NavDropdown.Item href="#action3">24x7 Customer Care</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button variant="outline-success">Search</Button>
-              </Form>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
