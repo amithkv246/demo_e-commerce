@@ -9,7 +9,7 @@ import InputGroupCom from './inputGroup';
 
 interface NavbarComProps {
   handleCartButton?: () => void,
-  isMobile:boolean
+  isMobile?:boolean
 }
 
 const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, isMobile }) => {
