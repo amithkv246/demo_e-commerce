@@ -25,7 +25,7 @@ const HomePage: FC<HomePageProps> = ({ isMobile, products }) => {
 
   return (
     <>
-      <NavbarCom handleCartButton={handleCartButton} />
+      <NavbarCom handleCartButton={handleCartButton} isMobile={isMobile} />
       <Heading2 value='Products' />
       <div className={`${isMobile ? "container d-flex flex-column justify-content-around gap-1" : "container d-flex flex-row flex-wrap gap-3 p-3"}`}>
         {

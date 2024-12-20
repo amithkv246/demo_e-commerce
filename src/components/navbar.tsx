@@ -8,24 +8,29 @@ import ButtonCom from './button';
 import InputGroupCom from './inputGroup';
 
 interface NavbarComProps {
-  handleCartButton?: () => void
+  handleCartButton?: () => void,
+  isMobile:boolean
 }
 
-const NavbarCom: FC<NavbarComProps> = ({ handleCartButton }) => {
+const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, isMobile }) => {
+  console.log(isMobile);
+  
   return (
     <>
       <Navbar expand={false} className="bg-body-tertiary mb-3">
         <Container fluid className='d-flex flex-row justify-content-around'>
           <div className='d-flex gap-5'>
             <Navbar.Brand href="#" className='text-warning fs-1 fw-bold'><span className='text-primary'>Quick</span>Mart</Navbar.Brand>
-            <InputGroupCom type='text' placeholder='Search for Products, Brands and More' bs='mt-3 mb-3' />
+            {
+              !isMobile &&
+              <InputGroupCom type='text' placeholder='Search for Products, Brands and More' bs='mt-3 mb-3 shadow-none' />}
           </div>
           <div>
-            <ButtonCom
+           { !isMobile && <ButtonCom
               value={<div className='d-flex align-items-center gap-2'><i className='fa-solid fa-cart-shopping' style={{ color: '#000000' }} ></i><span className='text-dark fw-bold'>Cart</span></div>}
-              bs='mt-3 mb-3'
+              bs='mt-3 mb-3 btn-outline-secondary'
               onClick={handleCartButton}
-            />
+            />}
           </div>
           <div><Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${false}`} /></div>
           <Navbar.Offcanvas
