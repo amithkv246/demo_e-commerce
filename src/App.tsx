@@ -38,9 +38,12 @@ function App() {
       .then(json => setProducts(json))
   }, [])
 
-  console.log("isMobile" + isMobile);
+  console.log("isMobile;" + isMobile);
   
-
+  useEffect(()=>{
+    console.log(products);
+    
+  },[products])
 
   return (
     <>
