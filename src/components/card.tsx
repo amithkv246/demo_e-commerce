@@ -5,15 +5,23 @@ import ButtonCom from './button';
 interface CardComProps {
   item: Product;
   handleSetCartDetails?: (item: Product) => void;
+  id?: number[];
+  handleRemoveCartDetails?: (item: Product) => void;
 }
 
-const CardCom: FC<CardComProps> = ({ item, handleSetCartDetails }) => {
+const CardCom: FC<CardComProps> = ({ item, handleSetCartDetails, id, handleRemoveCartDetails }) => {
 
   const [title, setTitle] = useState<string>("")
   const [slicedTitle, setSlicedTitle] = useState<string>("")
   const [description, setDescription] = useState<string>("")
   const [slicedDescription, setSlicedDescription] = useState<string>("")
-  
+  const [showAddToCart, setShowAddToCart] = useState<boolean>(true)
+
+  useEffect(() => {
+    if (item.id !== undefined && id?.includes(item.id)) {
+      setShowAddToCart(false);
+    }
+  }, [id, item])
 
   useEffect(() => {
     setTitle(item.title ?? "")
@@ -21,7 +29,7 @@ const CardCom: FC<CardComProps> = ({ item, handleSetCartDetails }) => {
   }, [item])
 
   useEffect(() => {
-    setSlicedTitle(title.slice(0, 17) + "...")
+    setSlicedTitle(title.slice(0, 12) + "...")
     setSlicedDescription(description.slice(0, 17) + "...")
   }, [title, description])
 
@@ -47,8 +55,15 @@ const CardCom: FC<CardComProps> = ({ item, handleSetCartDetails }) => {
           <div className='d-flex flex-row justify-content-evenly'>
             {
               handleSetCartDetails &&
+              showAddToCart &&
 
               <ButtonCom value='Add to Cart' bs='btn-outline-primary' onClick={() => handleSetCartDetails(item)} />
+
+            }
+            {
+              !handleSetCartDetails &&
+
+              <ButtonCom value='Remove from Cart' bs='btn-outline-primary' onClick={() => { handleRemoveCartDetails ? handleRemoveCartDetails(item): null}} />
 
             }
             <ButtonCom value='Details' bs='btn-outline-primary' />
