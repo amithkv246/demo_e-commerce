@@ -8,29 +8,25 @@ import ButtonCom from './button';
 import InputGroupCom from './inputGroup';
 
 interface NavbarComProps {
-  handleCartButton?: () => void,
-  isMobile?:boolean
+  handleCartButton?: () => void;
+  handleBrandonClick?: () => void;
 }
 
-const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, isMobile }) => {
-  console.log(isMobile);
-  
+const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick}) => {
   return (
     <>
       <Navbar expand={false} className="bg-body-tertiary mb-3">
         <Container fluid className='d-flex flex-row justify-content-around'>
           <div className='d-flex gap-5'>
-            <Navbar.Brand href="#" className='text-warning fs-1 fw-bold'><span className='text-primary'>Quick</span>Mart</Navbar.Brand>
-            {
-              !isMobile &&
-              <InputGroupCom type='text' placeholder='Search for Products, Brands and More' bs='mt-3 mb-3 shadow-none' />}
+            <Navbar.Brand role='button' className='text-warning fs-1 fw-bold' onClick={handleBrandonClick}><span className='text-primary'>Quick</span>Mart</Navbar.Brand>
+            <InputGroupCom type='text' placeholder='Search for Products, Brands and More' bs='mt-3 mb-3 shadow-none' />
           </div>
           <div>
-           { !isMobile && <ButtonCom
+            <ButtonCom
               value={<div className='d-flex align-items-center gap-2'><i className='fa-solid fa-cart-shopping' style={{ color: '#000000' }} ></i><span className='text-dark fw-bold'>Cart</span></div>}
               bs='mt-3 mb-3 btn-outline-secondary'
               onClick={handleCartButton}
-            />}
+            />
           </div>
           <div><Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${false}`} /></div>
           <Navbar.Offcanvas
@@ -40,12 +36,12 @@ const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, isMobile }) => {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${false}`}>
-                Other Options
+                MENU
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="#action1">Home</Nav.Link>
+                <Nav.Link role='button' onClick={handleBrandonClick} >Home</Nav.Link>
                 <Nav.Link href="#action2">Notification Preferences</Nav.Link>
                 <NavDropdown title={("Help")} id={`offcanvasNavbarDropdown-expand-${false}`} >
                   <NavDropdown.Item href="#action3">24x7 Customer Care</NavDropdown.Item>

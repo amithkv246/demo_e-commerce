@@ -3,10 +3,10 @@ import NavbarCom from '../components/navbar';
 import Heading2 from '../components/heading2';
 import FooterCom from '../components/footer';
 import CardCom from '../components/card';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 interface CartPageProps {
-  isMobile:boolean
+  isMobile: boolean;
 }
 
 const CartPage: FC<CartPageProps> = ({ isMobile }) => {
@@ -14,12 +14,17 @@ const CartPage: FC<CartPageProps> = ({ isMobile }) => {
   const location = useLocation()
   const { cartDetails } = location.state || {}
 
+  const navigate = useNavigate()
+  const handleBrandonClick = () => {
+    navigate("/")
+  }
+
   return (
     <>
-      <NavbarCom />
+      <NavbarCom handleBrandonClick={handleBrandonClick} />
       <Heading2 value='Cart' />
-      
-      <div className={`${isMobile ? "d-flex flex-column justify-content-around gap-1 p-1" : "container d-flex flex-row flex-wrap gap-3 p-3"}`}>
+
+      <div className={isMobile ? "ps-5 d-flex flex-column gap-3 justify-content-center" : "container me-0 pe-5 d-flex flex-row flex-wrap gap-3 justify-content-start"} >
         {
           cartDetails.map((product: Product, index: number) => (
             <CardCom item={product} key={index + "cartProduct"} />

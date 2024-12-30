@@ -7,7 +7,7 @@ interface FooterComProps {
 const FooterCom: FC<FooterComProps> = ({ }) => {
   return (
     <>
-      <footer>
+      <footer className='mt-5'>
         <div className='d-flex flex-row justify-content-between p-5 bg-dark text-light' >
           <div>
             <p>ABOUT</p>

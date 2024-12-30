@@ -7,7 +7,7 @@ interface Heading2Props {
 const Heading2: FC<Heading2Props> = ({ value }) => {
   return (
     <>
-      <h2 className='container fs-1 mt-5 mb-3' >{value}</h2>
+      <h2 className='fs-1 container me-0 mt-5 mb-3 pe-5' >{value}</h2>
     </>
   );
 };

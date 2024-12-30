@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import NavbarCom from '../components/navbar';
 import CardCom from '../components/card';
 import FooterCom from '../components/footer';
@@ -15,19 +15,19 @@ const HomePage: FC<HomePageProps> = ({ isMobile, products }) => {
   const [cartDetails, setCartDetails] = useState<Product[]>([])
   const navigate = useNavigate()
 
-  function handleSetCartDetails(item:Product) {
+  function handleSetCartDetails(item: Product) {
     setCartDetails([...cartDetails, item])
   }
 
   const handleCartButton = () => {
-    navigate("/Cart", {state: { cartDetails : cartDetails }})
+    navigate("/Cart", { state: { cartDetails: cartDetails } })
   }
 
   return (
     <>
-      <NavbarCom handleCartButton={handleCartButton} isMobile={isMobile} />
+      <NavbarCom handleCartButton={handleCartButton}  />
       <Heading2 value='Products' />
-      <div className={`${isMobile ? "container d-flex flex-column justify-content-around gap-1" : "container d-flex flex-row flex-wrap gap-3 p-3"}`}>
+      <div className={isMobile ? "ps-5 d-flex flex-column gap-3 justify-content-center" : "container me-0 pe-5 d-flex flex-row flex-wrap gap-3 justify-content-start"} >
         {
           products.map((product: Product, index: number) => (
             <CardCom item={product} key={index + "product"} handleSetCartDetails={handleSetCartDetails} />

@@ -10,27 +10,17 @@ function App() {
   const [isMobile, setIsMobile] = useState<boolean>(false)
 
   useEffect(() => {
-    const checkevent = () => {
-      if (window.innerWidth < 678) {
-        setIsMobile(true);
-        
-      } else {
-        setIsMobile(false);
-        
-      }
-    };
-
+    const checkevent = () => setIsMobile(window.innerWidth <= 400)
     checkevent();
     window.addEventListener("resize", checkevent);
-
     return () => {
       window.removeEventListener("resize", checkevent);
-    };
-  }, []);
+    }
+  }, [])
 
-  useEffect(()=> {
-    console.log(`Window width: ${window.innerWidth}, isMobile: ${isMobile}`);
-  },[isMobile])
+  useEffect(() => {
+    console.log(isMobile);
+  }, [isMobile])
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
@@ -38,12 +28,9 @@ function App() {
       .then(json => setProducts(json))
   }, [])
 
-  console.log("isMobile;" + isMobile);
-  
-  useEffect(()=>{
+  useEffect(() => {
     console.log(products);
-    
-  },[products])
+  }, [products])
 
   return (
     <>
