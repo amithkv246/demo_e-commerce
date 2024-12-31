@@ -1,5 +1,5 @@
 import Card from 'react-bootstrap/Card';
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import ButtonCom from './button';
 
 interface CardComProps {
