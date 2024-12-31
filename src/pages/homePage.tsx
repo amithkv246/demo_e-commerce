@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import NavbarCom from '../components/navbar';
 import CardCom from '../components/card';
 import FooterCom from '../components/footer';

@@ -9,7 +9,7 @@ interface ButtonComProps {
 const ButtonCom: FC<ButtonComProps> = ({ value, onClick, bs }) => {
     return (
         <>
-            <button className={'btn me-1 ms-1 ' + bs} onClick={onClick}>{value}</button>
+            <button className={'fw-bold fs-5 btn me-1 ms-1 ' + bs} onClick={onClick}>{value}</button>
         </>
     );
 };

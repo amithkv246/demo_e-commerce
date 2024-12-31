@@ -13,17 +13,21 @@ function App() {
 
   const navigate = useNavigate()
 
+  useEffect(()=> {
+    console.log("initial innerWidth:" + window.innerWidth);
+  },[])
+
   useEffect(() => {
-    const checkevent = () => setIsMobile(window.innerWidth <= 400)
-    checkevent();
-    window.addEventListener("resize", checkevent);
+    const checkWidth = () => setIsMobile(window.innerWidth <= 600)
+    checkWidth();
+    window.addEventListener("resize", checkWidth);
     return () => {
-      window.removeEventListener("resize", checkevent);
+      window.removeEventListener("resize", checkWidth);
     }
   }, [])
 
   useEffect(() => {
-    console.log(isMobile);
+    console.log("innerWidth:" + window.innerWidth + "isMobile" + isMobile);
   }, [isMobile])
 
   useEffect(() => {
@@ -42,7 +46,7 @@ function App() {
   }
 
   function handleSetCartDetails(item: Product) { //add to cart btn
-    setCartDetails([...cartDetails, item]) 
+    setCartDetails([...cartDetails, item])
   }
 
   useEffect(() => {
@@ -58,8 +62,10 @@ function App() {
   }
 
   function handleRemoveCartDetails(item: Product) { //remove from cart btn
-    const newArray = cartDetails.filter((itm) => itm.id !== item.id )
-    setCartDetails(newArray)
+    const newArray1 = id.filter((itm) => itm !== item.id)
+    setId(newArray1)
+    const newArray2 = cartDetails.filter((itm) => itm.id !== item.id)
+    setCartDetails(newArray2)
   }
 
 
