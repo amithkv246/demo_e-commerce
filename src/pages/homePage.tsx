@@ -16,19 +16,19 @@ const HomePage: FC<HomePageProps> = ({ isMobile, products, handleCartButton, han
 
   return (
     <>
-      <NavbarCom handleCartButton={handleCartButton} />
+      <NavbarCom handleCartButton={handleCartButton} isMobile={isMobile} />
       <Heading2 value='Products' />
       <div className={isMobile ? "ps-5 d-flex flex-column gap-3 justify-content-center" : "container me-0 pe-5 d-flex flex-row flex-wrap gap-3 justify-content-start"} >
         {
           products.length > 0 ?
             products.map((product: Product, index: number) => (
-              <CardCom item={product} key={index + "product"} handleSetCartDetails={handleSetCartDetails} id={id} />
+              <CardCom item={product} key={index + "product"} handleSetCartDetails={handleSetCartDetails} id={id} isMobile={isMobile} />
             ))
             :
             <p>Nothing to show.</p>
         }
       </div>
-      <FooterCom />
+      <FooterCom isMobile={isMobile} />
     </>
   );
 };

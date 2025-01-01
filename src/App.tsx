@@ -13,12 +13,16 @@ function App() {
 
   const navigate = useNavigate()
 
-  useEffect(()=> {
-    console.log("initial innerWidth:" + window.innerWidth);
-  },[])
+  // useEffect(() => {
+  //   console.log(`Inner Width: ${window.innerWidth}px`);
+  //   console.log(`Client Width: ${document.documentElement.clientWidth}px`);
+  //   console.log(`Screen Width: ${window.screen.width}px`);
+  //   console.log(`DPR: ${window.devicePixelRatio}`);
+  //   console.log(`Actual width: ${window.innerWidth * window.devicePixelRatio}`);
+  // }, [])
 
   useEffect(() => {
-    const checkWidth = () => setIsMobile(window.innerWidth <= 600)
+    const checkWidth = () => setIsMobile(document.documentElement.clientWidth <= 600)
     checkWidth();
     window.addEventListener("resize", checkWidth);
     return () => {
@@ -27,7 +31,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    console.log("innerWidth:" + window.innerWidth + "isMobile" + isMobile);
+    console.log("clientWidth : " + document.documentElement.clientWidth + " , isMobile : " + isMobile);
   }, [isMobile])
 
   useEffect(() => {
@@ -36,9 +40,9 @@ function App() {
       .then(json => setProducts(json))
   }, [])
 
-  useEffect(() => {
-    console.log(products);
-  }, [products])
+  // useEffect(() => {
+  //   console.log(products);
+  // }, [products])
 
   // homePage
   const handleCartButton = () => {

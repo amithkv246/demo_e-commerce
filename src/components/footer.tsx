@@ -1,14 +1,14 @@
 import { FC } from 'react';
 
 interface FooterComProps {
-
+  isMobile: boolean;
 }
 
-const FooterCom: FC<FooterComProps> = ({ }) => {
+const FooterCom: FC<FooterComProps> = ({ isMobile }) => {
   return (
     <>
       <footer className='mt-5'>
-        <div className='d-flex flex-row justify-content-between p-5 bg-dark text-light' >
+        <div className={isMobile ? "d-flex flex-column gap-3 justify-content-center p-5 bg-dark text-light" : "d-flex flex-row justify-content-between p-5 bg-dark text-light"} >
           <div>
             <p>ABOUT</p>
             <p>Contact us</p>

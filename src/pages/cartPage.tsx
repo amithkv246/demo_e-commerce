@@ -14,20 +14,20 @@ interface CartPageProps {
 const CartPage: FC<CartPageProps> = ({ isMobile, handleBrandonClick, handleRemoveCartDetails, cartDetails }) => {
   return (
     <>
-      <NavbarCom handleBrandonClick={handleBrandonClick} />
+      <NavbarCom handleBrandonClick={handleBrandonClick} isMobile={isMobile} />
       <Heading2 value='My Cart' />
 
       <div className={isMobile ? "ps-5 d-flex flex-column gap-3 justify-content-center" : "container me-0 pe-5 d-flex flex-row flex-wrap gap-3 justify-content-start"} >
         {
           cartDetails.length > 0 ?
             cartDetails.map((product: Product, index: number) => (
-              <CardCom item={product} key={index + "cartProduct"} handleRemoveCartDetails={handleRemoveCartDetails} />
+              <CardCom item={product} key={index + "cartProduct"} handleRemoveCartDetails={handleRemoveCartDetails} isMobile={isMobile} />
             ))
             :
             <p>Nothing to show.</p>
         }
       </div>
-      <FooterCom />
+      <FooterCom isMobile={isMobile} />
     </>
   );
 };

@@ -7,9 +7,10 @@ interface CardComProps {
   handleSetCartDetails?: (item: Product) => void;
   id?: number[];
   handleRemoveCartDetails?: (item: Product) => void;
+  isMobile: boolean;
 }
 
-const CardCom: FC<CardComProps> = ({ item, handleSetCartDetails, id, handleRemoveCartDetails }) => {
+const CardCom: FC<CardComProps> = ({ item, handleSetCartDetails, id, handleRemoveCartDetails, isMobile }) => {
 
   const [title, setTitle] = useState<string>("")
   const [slicedTitle, setSlicedTitle] = useState<string>("")
@@ -112,27 +113,29 @@ const CardCom: FC<CardComProps> = ({ item, handleSetCartDetails, id, handleRemov
               <Card.Link href="#">Another Link</Card.Link> */}
                   <div>
                     {
-    
+
                       handleSetCartDetails && showAddToCart ?
                         // <ButtonCom value='Add to Cart' bs='btn btn-primary btn-lg' onClick={() => handleSetCartDetails(item)} />
-                        <p className='fs-5 fw-bold text-primary bg-info-subtle' role='button' onClick={() => handleSetCartDetails(item)} style={{ marginBottom: 0, padding:"0.5rem 10rem 0.5rem 10rem" }} >Add to cart</p>
+                        <p className='fs-5 fw-bold text-primary bg-info-subtle' role='button' onClick={() => handleSetCartDetails(item)} style={{ marginBottom: 0, padding: "0.5rem 10rem 0.5rem 10rem" }} >Add to cart</p>
                         :
                         handleSetCartDetails &&
-                        <p className='fs-5 fw-bold text-info bg-info-subtle' style={{ marginBottom: 0, padding:"0.5rem 10rem 0.5rem 10rem" }} >Added to cart</p>
-    
+                        <p className='fs-5 fw-bold text-info bg-info-subtle' style={{ marginBottom: 0, padding: "0.5rem 10rem 0.5rem 10rem" }} >Added to cart</p>
+
                     }
                     {
                       !handleSetCartDetails &&
-    
+
                       // <ButtonCom value='Remove from Cart' bs='btn-outline-primary' onClick={() => { handleRemoveCartDetails ? handleRemoveCartDetails(item) : null }} />
-                      <p className='fs-5 fw-bold text-primary bg-info-subtle' role='button' onClick={() => { handleRemoveCartDetails ? handleRemoveCartDetails(item) : null }} style={{ marginBottom: 0, padding:"0.5rem 10rem 0.5rem 10rem" }} >Remove from cart</p>
-    
+                      <p className='fs-5 fw-bold text-primary bg-info-subtle' role='button' onClick={() => { handleRemoveCartDetails ? handleRemoveCartDetails(item) : null }} style={{ marginBottom: 0, padding: "0.5rem 10rem 0.5rem 10rem" }} >Remove from cart</p>
+
                     }
                   </div>
                 </Card.Body>
               </div>
             </div>
           </Card>
+
+
 
       }
 
