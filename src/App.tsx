@@ -3,15 +3,18 @@ import './App.css'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import HomePage from './pages/homePage'
 import CartPage from './pages/cartPage'
+import { useDispatch } from 'react-redux'
+import { updateIsMobile } from './redux/slice/slice'
 
 function App() {
 
   const [products, setProducts] = useState<Product[]>([])
-  const [isMobile, setIsMobile] = useState<boolean>(false)
+  const [isMob, setIsMob] = useState<boolean>(false)
   const [cartDetails, setCartDetails] = useState<Product[]>([])
   const [id, setId] = useState<number[]>([])
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   // useEffect(() => {
   //   console.log(`Inner Width: ${window.innerWidth}px`);
@@ -22,7 +25,7 @@ function App() {
   // }, [])
 
   useEffect(() => {
-    const checkWidth = () => setIsMobile(document.documentElement.clientWidth <= 600)
+    const checkWidth = () => setIsMob(document.documentElement.clientWidth <= 600)
     checkWidth();
     window.addEventListener("resize", checkWidth);
     return () => {
@@ -31,8 +34,9 @@ function App() {
   }, [])
 
   useEffect(() => {
-    console.log("clientWidth : " + document.documentElement.clientWidth + " , isMobile : " + isMobile);
-  }, [isMobile])
+    console.log("clientWidth : " + document.documentElement.clientWidth + " , isMobile : " + isMob);
+    dispatch(updateIsMobile(isMob))
+  }, [isMob])
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
@@ -77,8 +81,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path={"/"} element={<HomePage isMobile={isMobile} products={products} handleCartButton={handleCartButton} handleSetCartDetails={handleSetCartDetails} id={id} />} />
-        <Route path={"/Cart"} element={<CartPage isMobile={isMobile} handleBrandonClick={handleBrandonClick} handleRemoveCartDetails={handleRemoveCartDetails} cartDetails={cartDetails} />} />
+        <Route path={"/"} element={<HomePage products={products} handleCartButton={handleCartButton} handleSetCartDetails={handleSetCartDetails} id={id} />} />
+        <Route path={"/Cart"} element={<CartPage handleBrandonClick={handleBrandonClick} handleRemoveCartDetails={handleRemoveCartDetails} cartDetails={cartDetails} />} />
       </Routes>
     </>
   )

@@ -1,16 +1,19 @@
 import Card from 'react-bootstrap/Card';
 import { FC, useEffect, useState } from 'react';
 import ButtonCom from './button';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store/store';
 
 interface CardComProps {
   item: Product;
   handleSetCartDetails?: (item: Product) => void;
   id?: number[];
   handleRemoveCartDetails?: (item: Product) => void;
-  isMobile: boolean;
 }
 
-const CardCom: FC<CardComProps> = ({ item, handleSetCartDetails, id, handleRemoveCartDetails, isMobile }) => {
+const CardCom: FC<CardComProps> = ({ item, handleSetCartDetails, id, handleRemoveCartDetails }) => {
+
+  const isMobile = useSelector((state: RootState) => state.counter.isMobile)
 
   const [title, setTitle] = useState<string>("")
   const [slicedTitle, setSlicedTitle] = useState<string>("")
@@ -47,6 +50,9 @@ const CardCom: FC<CardComProps> = ({ item, handleSetCartDetails, id, handleRemov
 
         !showDetails ?
 
+          (isMobile ?
+            null
+          :
           <Card style={{ width: '16rem', minHeight: "500px" }}>
             <Card.Img className='p-5' variant="top" src={item.image} width="300" height="300" />
             <Card.Body>
@@ -84,12 +90,15 @@ const CardCom: FC<CardComProps> = ({ item, handleSetCartDetails, id, handleRemov
                 }
               </div>
             </Card.Body>
-          </Card>
+          </Card>)
 
 
           :// true part
 
 
+          (isMobile ?
+            null
+          :
           <Card style={{ width: '65rem', minHeight: "300px" }}>
             <div className='d-flex flex-row'>
               <div className='d-flex justify-content-center align-items-center ps-5 pe-5'><img className='p-2' src={item.image} width="auto" height="300" /></div>
@@ -133,7 +142,7 @@ const CardCom: FC<CardComProps> = ({ item, handleSetCartDetails, id, handleRemov
                 </Card.Body>
               </div>
             </div>
-          </Card>
+          </Card>)
 
 
 

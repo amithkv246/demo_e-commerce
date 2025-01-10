@@ -1,10 +1,14 @@
 import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store/store';
 
 interface FooterComProps {
-  isMobile: boolean;
 }
 
-const FooterCom: FC<FooterComProps> = ({ isMobile }) => {
+const FooterCom: FC<FooterComProps> = ({  }) => {
+
+  const isMobile = useSelector((state: RootState) => state.counter.isMobile)
+
   return (
     <>
       <footer className='mt-5'>
@@ -16,6 +20,7 @@ const FooterCom: FC<FooterComProps> = ({ isMobile }) => {
             <p>Careers</p>
             <p>Corporate information</p>
           </div>
+           
           <div>
             <p>GROUP COMPANIES</p>
             <p>Myntra</p>

@@ -6,14 +6,18 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ButtonCom from './button';
 import InputGroupCom from './inputGroup';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store/store';
 
 interface NavbarComProps {
   handleCartButton?: () => void;
   handleBrandonClick?: () => void;
-  isMobile: boolean;
 }
 
-const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick, isMobile }) => {
+const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick }) => {
+
+  const isMobile = useSelector((state: RootState) => state.counter.isMobile)
+
   return (
     <>
       <Navbar expand={false} className="bg-body-tertiary mb-3">
