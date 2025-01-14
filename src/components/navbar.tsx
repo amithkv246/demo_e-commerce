@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -6,8 +6,9 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ButtonCom from './button';
 import InputGroupCom from './inputGroup';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store/store';
+import { updateIsSearch, updateSearchText } from '../redux/slice/slice';
 
 interface NavbarComProps {
   handleCartButton?: () => void;
@@ -16,7 +17,19 @@ interface NavbarComProps {
 
 const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick }) => {
 
-  const isMobile = useSelector((state: RootState) => state.counter.isMobile)
+  const { isMobile } = useSelector((state: RootState) => state.counter)
+  const [tempSearchText, setTempSearchText] = useState<string>("")
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (tempSearchText === "") {
+      dispatch(updateIsSearch(false))
+    }
+  }, [tempSearchText])
+
+  function handleOnClick() {
+    dispatch(updateSearchText(tempSearchText))
+  }
 
   return (
     <>
@@ -26,7 +39,7 @@ const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick })
             <Navbar.Brand role='button' className='text-warning fs-1 fw-bold' onClick={handleBrandonClick}><span className='text-primary'>Quick</span>Mart</Navbar.Brand>
             {
               !isMobile &&
-              <InputGroupCom style={{ minWidth: "500px" }} type='text' placeholder='Search for Products, Brands and More' bs='mt-3 mb-3 shadow-none' />
+              <InputGroupCom style={{ minWidth: "500px" }} onClick={handleOnClick} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTempSearchText(e.target.value)} value={tempSearchText} type='text' placeholder='Search for Products, Brands and More' bs='mt-3 mb-3 shadow-none' />
             }
           </div>
           <div>

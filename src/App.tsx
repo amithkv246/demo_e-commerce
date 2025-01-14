@@ -3,10 +3,13 @@ import './App.css'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import HomePage from './pages/homePage'
 import CartPage from './pages/cartPage'
-import { useDispatch } from 'react-redux'
-import { updateIsMobile } from './redux/slice/slice'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateIsMobile, updateIsSearch, updateNoResults, updateSearchId } from './redux/slice/slice'
+import { RootState } from './redux/store/store'
 
 function App() {
+
+  const searchText = useSelector((state: RootState) => state.counter.searchText)
 
   const [products, setProducts] = useState<Product[]>([])
   const [isMob, setIsMob] = useState<boolean>(false)
@@ -34,7 +37,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    console.log("clientWidth : " + document.documentElement.clientWidth + " , isMobile : " + isMob);
+    // console.log("clientWidth : " + document.documentElement.clientWidth + " , isMobile : " + isMob);
     dispatch(updateIsMobile(isMob))
   }, [isMob])
 
@@ -76,7 +79,33 @@ function App() {
     setCartDetails(newArray2)
   }
 
+  useEffect(() => {
+    for (let i = 0; i < products.length; i++) {
+      if ((products[i].title && products[i].title?.toLowerCase().includes(searchText.toLowerCase())) ||
+        (products[i].description && products[i].description?.toLowerCase().includes(searchText.toLowerCase()))
+      ) {
+        dispatch(updateIsSearch(true))
+        dispatch(updateSearchId(products[i].id))
+      } else {
+        dispatch(updateNoResults(products[i].id))
+      }
+    }
+  }, [searchText])
 
+  // function handleSearchButton() {
+  //   isSearch ? null : alert("No Search Results Found.")
+
+  //   dispatch(updateIsSearch(products.some( product => 
+  //     Object.values(product).some( value => 
+  //     typeof(value) === "string" && value.toLowerCase().includes(searchText.toLowerCase())
+  //     )
+  //   )))
+
+  //   dispatch(updateIsSearch(products.some( product =>
+  //     (product.title && product.title.toLowerCase().includes(searchText.toLowerCase())) ||
+  //     (product.description && product.description.toLowerCase().includes(searchText.toLowerCase()))
+  //   )))
+  // }
 
   return (
     <>
