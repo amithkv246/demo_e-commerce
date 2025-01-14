@@ -8,7 +8,7 @@ import ButtonCom from './button';
 import InputGroupCom from './inputGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store/store';
-import { updateIsSearch, updateSearchText } from '../redux/slice/slice';
+import { clearNoSearchId, clearSearchId, updateIsDisabled, updateIsSearch, updateSearchText } from '../redux/slice/slice';
 
 interface NavbarComProps {
   handleCartButton?: () => void;
@@ -17,7 +17,7 @@ interface NavbarComProps {
 
 const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick }) => {
 
-  const { isMobile } = useSelector((state: RootState) => state.counter)
+  const isMobile = useSelector((state: RootState) => state.counter.isMobile)
   const [tempSearchText, setTempSearchText] = useState<string>("")
   const dispatch = useDispatch()
 
@@ -31,6 +31,29 @@ const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick })
     dispatch(updateSearchText(tempSearchText))
   }
 
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key == "Backspace") {
+      dispatch(clearSearchId())
+      dispatch(clearNoSearchId())
+    } else if (e.key == "Enter") {
+      handleOnClick();
+    }
+  }
+
+  function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setTempSearchText(e.target.value)
+    dispatch(clearSearchId())
+    dispatch(clearNoSearchId())
+  }
+
+  useEffect(() => {
+    if (!handleCartButton) {
+      dispatch(updateIsDisabled(true))
+    } else {
+      dispatch(updateIsDisabled(false))
+    }
+  }, [handleCartButton])
+
   return (
     <>
       <Navbar expand={false} className="bg-body-tertiary mb-3">
@@ -39,7 +62,7 @@ const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick })
             <Navbar.Brand role='button' className='text-warning fs-1 fw-bold' onClick={handleBrandonClick}><span className='text-primary'>Quick</span>Mart</Navbar.Brand>
             {
               !isMobile &&
-              <InputGroupCom style={{ minWidth: "500px" }} onClick={handleOnClick} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTempSearchText(e.target.value)} value={tempSearchText} type='text' placeholder='Search for Products, Brands and More' bs='mt-3 mb-3 shadow-none' />
+              <InputGroupCom style={{ minWidth: "500px" }} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => handleKeyDown(e)} onClick={handleOnClick} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleOnChange(e)} value={tempSearchText} type='text' placeholder='Search for Products, Brands and More' bs='mt-3 mb-3 shadow-none' />
             }
           </div>
           <div>

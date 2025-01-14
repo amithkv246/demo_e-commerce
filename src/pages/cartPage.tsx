@@ -24,7 +24,7 @@ const CartPage: FC<CartPageProps> = ({ handleBrandonClick, handleRemoveCartDetai
   return (
     <>
       <NavbarCom handleBrandonClick={handleBrandonClick} />
-      <div className={isMobile ? "ps-5" : "container"}>
+      <div className={isMobile ? "ps-5" : "container"} style={{ minHeight: "17vh" }} >
         <Heading2 value='My Cart' />
         <div className='grid row gap-0'>
           <div className={isMobile ? "d-flex flex-column gap-3 justify-content-center" : "col-9 d-flex flex-row flex-wrap gap-3 justify-content-start"} >
@@ -37,18 +37,24 @@ const CartPage: FC<CartPageProps> = ({ handleBrandonClick, handleRemoveCartDetai
                 <p>Nothing to show.</p>
             }
           </div>
-          <div className='col-3 p-4 pt-2 border border-2 rounded-3' style={{ height : "25rem", boxShadow: "0px 0px 2px 1px #aaa"}}>
-            <div className='priceBox grid row row-gap-3 fs-5'>
-              <p className='col-12 fw-bold fs-3 text-secondary' >Price Details</p>
-              <p className='col-8'>Price({no_of_items} Items)</p><p className='col-1'>:</p><p className='col-3 text-end'>${price_of_items.toFixed(2)}</p>
-              <p className='col-8'>Delivery Charges</p><p className='col-1'>:</p><p className='col-3 text-end'>${delivery_charge}</p>
-              <p className='col-8'>Total Amount</p><p className='col-1'>:</p><p className='col-3 text-end'>${total_price.toFixed(2)}</p>
+          {
+            cartDetails.length > 0 &&
+            <div className='col-3 p-4 pt-2 border border-2 rounded-3' style={{ height: "25rem", boxShadow: "0px 0px 2px 1px #aaa" }}>
+              <div className='priceBox grid row row-gap-3 fs-5'>
+                <p className='col-12 fw-bold fs-3 text-secondary' >Price Details</p>
+                <p className='col-8'>Price({no_of_items} Items)</p><p className='col-1'>:</p><p className='col-3 text-end'>${price_of_items.toFixed(2)}</p>
+                <p className='col-8'>Delivery Charges</p><p className='col-1'>:</p><p className='col-3 text-end'>${delivery_charge}</p>
+                <p className='col-8'>Total Amount</p><p className='col-1'>:</p><p className='col-3 text-end'>${total_price.toFixed(2)}</p>
+              </div>
             </div>
+          }
+        </div>
+        {
+          cartDetails.length > 0 &&
+          <div className='mt-4 p-3 d-flex justify-content-center bg-warning-subtle border rounded-3' style={{ boxShadow: "0px 0px 2px 1px #aaa" }}>
+            <ButtonCom bs='btn btn-warning btn-lg' value={"Place Order"} />
           </div>
-        </div>
-        <div className='mt-4 p-3 d-flex justify-content-center bg-warning-subtle border rounded-3' style={{ boxShadow: "0px 0px 2px 1px #aaa" }}>
-          <ButtonCom bs='btn btn-warning btn-lg' value={"Place Order"} />
-        </div>
+        }
       </div>
       <FooterCom />
       <style>

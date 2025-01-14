@@ -4,7 +4,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import HomePage from './pages/homePage'
 import CartPage from './pages/cartPage'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateIsMobile, updateIsSearch, updateNoResults, updateSearchId } from './redux/slice/slice'
+import { updateIsMobile, updateIsSearch, updateNoSearchId, updateSearchId } from './redux/slice/slice'
 import { RootState } from './redux/store/store'
 
 function App() {
@@ -87,25 +87,10 @@ function App() {
         dispatch(updateIsSearch(true))
         dispatch(updateSearchId(products[i].id))
       } else {
-        dispatch(updateNoResults(products[i].id))
+        dispatch(updateNoSearchId(products[i].id))
       }
     }
   }, [searchText])
-
-  // function handleSearchButton() {
-  //   isSearch ? null : alert("No Search Results Found.")
-
-  //   dispatch(updateIsSearch(products.some( product => 
-  //     Object.values(product).some( value => 
-  //     typeof(value) === "string" && value.toLowerCase().includes(searchText.toLowerCase())
-  //     )
-  //   )))
-
-  //   dispatch(updateIsSearch(products.some( product =>
-  //     (product.title && product.title.toLowerCase().includes(searchText.toLowerCase())) ||
-  //     (product.description && product.description.toLowerCase().includes(searchText.toLowerCase()))
-  //   )))
-  // }
 
   return (
     <>

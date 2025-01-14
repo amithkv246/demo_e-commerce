@@ -19,9 +19,9 @@ const HomePage: FC<HomePageProps> = ({ products, handleCartButton, handleSetCart
   const isMobile = useSelector((state: RootState) => state.counter.isMobile)
   const { searchText, isSearch } = useSelector((state: RootState) => state.counter)
   const searchId: number[] = useSelector((state: RootState) => state.counter.searchId)
+  const noSearchId: number[] = useSelector((state: RootState) => state.counter.noSearchId)
   const searchResults: Product[] = useSelector((state: RootState) => state.counter.searchResults)
-  const noResults: number[] = useSelector((state: RootState) => state.counter.noResults)
-  const [a, seta] = useState<boolean>(false)
+  const [isNoResults, setIsNoResults] = useState<boolean>(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -30,48 +30,40 @@ const HomePage: FC<HomePageProps> = ({ products, handleCartButton, handleSetCart
     }
   }, [isSearch, searchId])
 
-  // console.log("searchResults" + searchResults);
   useEffect(() => {
-    console.log("searchResults" + searchResults);
-  }, [searchResults])
-
-  useEffect(() => {
-    if (noResults.length == products.length) {
-      // alert("No Search Results Found")
-    }
-  }, [noResults])
-
-
+    setIsNoResults(noSearchId.length == 20 && products.length == 20)
+  }, [noSearchId])
 
   return (
     <>
       <NavbarCom handleCartButton={handleCartButton} />
       {
         isSearch ?
-          <div className={isMobile ? "ps-5" : "container me-0"}>
+          <div className={isMobile ? "ps-5" : "container me-0"} >
             <Heading2 value={`Search results for " ${searchText} "`} />
             <div className={isMobile ? "d-flex flex-column gap-3 justify-content-center" : "d-flex flex-row flex-wrap gap-3 justify-content-start"} >
               {
-                searchResults.length > 0 ?
+                searchResults.length > 0 &&
                 searchResults.map((product: Product, index: number) => (
-                  <CardCom item={product} key={index + "searchResult"} handleSetCartDetails={handleSetCartDetails} id={id} />
+                  <CardCom item={product} key={index + "homeSearchResult"} handleSetCartDetails={handleSetCartDetails} id={id} />
                 ))
-                :
-                <p>No search results found.</p>
               }
             </div>
-          </div >
+          </div>
           :
-          <div className={isMobile ? "ps-5" : "container me-0"}>
-            <Heading2 value='Products' />
+          <div className={isMobile ? "ps-5" : "container me-0"} style={{ minHeight: "17vh" }} >
+            <Heading2 value={isNoResults ? "No search results found." : "Products"} />
             <div className={isMobile ? "d-flex flex-column gap-3 justify-content-center" : "d-flex flex-row flex-wrap gap-3 justify-content-start"} >
               {
-                products.length > 0 ?
-                  products.map((product: Product, index: number) => (
-                    <CardCom item={product} key={index + "product"} handleSetCartDetails={handleSetCartDetails} id={id} />
-                  ))
+                isNoResults ?
+                  null
                   :
-                  <p>Nothing to show.</p>
+                  products.length > 0 ?
+                    products.map((product: Product, index: number) => (
+                      <CardCom item={product} key={index + "product"} handleSetCartDetails={handleSetCartDetails} id={id} />
+                    ))
+                    :
+                    <p>Nothing to show.</p>
               }
             </div>
           </div>
