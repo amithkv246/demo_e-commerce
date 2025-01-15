@@ -29,7 +29,9 @@ const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick })
   }, [tempSearchText, searchText])
 
   function handleOnClick() {
-    dispatch(updateSearchText(tempSearchText))
+    if (tempSearchText !== "") {
+      dispatch(updateSearchText(tempSearchText))
+    }
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -42,6 +44,9 @@ const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick })
   }
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+    // if (e.target.value !== "") {
+    //   dispatch(updateSearchText(e.target.value))
+    // } does not work completely
     setTempSearchText(e.target.value)
     dispatch(clearSearchId())
     dispatch(clearNoSearchId())
