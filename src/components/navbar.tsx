@@ -18,6 +18,7 @@ interface NavbarComProps {
 const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick }) => {
 
   const isMobile = useSelector((state: RootState) => state.counter.isMobile)
+  const searchText = useSelector((state: RootState) => state.counter.searchText)
   const [tempSearchText, setTempSearchText] = useState<string>("")
   const dispatch = useDispatch()
 
@@ -25,7 +26,7 @@ const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick })
     if (tempSearchText === "") {
       dispatch(updateIsSearch(false))
     }
-  }, [tempSearchText])
+  }, [tempSearchText, searchText])
 
   function handleOnClick() {
     dispatch(updateSearchText(tempSearchText))

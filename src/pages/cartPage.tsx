@@ -20,14 +20,15 @@ const CartPage: FC<CartPageProps> = ({ handleBrandonClick, handleRemoveCartDetai
   const price_of_items: number = cartDetails.reduce((acc, item) => (acc + (item.price ?? 0)), 0);
   const delivery_charge: number = cartDetails.length * 10;
   const total_price: number = delivery_charge + cartDetails.reduce((acc, item) => (acc + (item.price ?? 0)), 0);
+  const height: string | number = (cartDetails.length > 0 ? "30rem" : "0rem")
 
   return (
     <>
       <NavbarCom handleBrandonClick={handleBrandonClick} />
-      <div className={isMobile ? "ps-5" : "container"} style={{ minHeight: "17vh" }} >
+      <div className={isMobile ? "ps-5" : "container me-5"} style={{ minHeight: "17vh" }} >
         <Heading2 value='My Cart' />
-        <div className='grid row gap-0'>
-          <div className={isMobile ? "d-flex flex-column gap-3 justify-content-center" : "col-9 d-flex flex-row flex-wrap gap-3 justify-content-start"} >
+        <div className='d-flex gap-2'>
+          <div className={isMobile ? "d-flex flex-column gap-3 justify-content-center" : (cartDetails.length > 0 ? "d-flex flex-row flex-wrap gap-3 justify-content-start overflow-y-scroll p-2 border border-3 border-secondary-emphasis rounded-3 bg-light" : "d-flex")} style={{ height: height, width: "53rem" }} >
             {
               cartDetails.length > 0 ?
                 cartDetails.map((product: Product, index: number) => (
@@ -39,8 +40,8 @@ const CartPage: FC<CartPageProps> = ({ handleBrandonClick, handleRemoveCartDetai
           </div>
           {
             cartDetails.length > 0 &&
-            <div className='col-3 p-4 pt-2 border border-2 rounded-3' style={{ height: "25rem", boxShadow: "0px 0px 2px 1px #aaa" }}>
-              <div className='priceBox grid row row-gap-3 fs-5'>
+            <div className='border border-2 rounded-3 bg-warning bg-opacity-10' style={{ height: "25rem", width: "17rem", boxShadow: "0px 0px 2px 1px #aaa" }}>
+              <div className='m-3 mt-1 priceBox grid row row-gap-3 fs-5'>
                 <p className='col-12 fw-bold fs-3 text-secondary' >Price Details</p>
                 <p className='col-8'>Price({no_of_items} Items)</p><p className='col-1'>:</p><p className='col-3 text-end'>${price_of_items.toFixed(2)}</p>
                 <p className='col-8'>Delivery Charges</p><p className='col-1'>:</p><p className='col-3 text-end'>${delivery_charge}</p>
