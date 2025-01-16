@@ -10,6 +10,7 @@ export interface CounterState {
     noSearchId: number[],
     searchResults: Product[],
     isDisabled: boolean,
+    isSearch2: boolean,
 }
 
 const initialState: CounterState = {
@@ -21,12 +22,16 @@ const initialState: CounterState = {
     noSearchId: [],
     searchResults: [],
     isDisabled: false,
+    isSearch2: false,
 }
 
 export const counterSlice = createSlice({
     name: 'counter',
     initialState,
     reducers: {
+        updateIsSearch2: (state, action: PayloadAction<boolean>) => {
+            state.isSearch2 = action.payload
+        },
 
         updateSearchText: (state, action: PayloadAction<string>) => {
             state.searchText = action.payload
@@ -77,6 +82,6 @@ export const counterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { updateIsMobile, updateSearchText, updateIsSearch, updateSearchId, clearSearchId, updateSearchResults, updateNoSearchId, clearNoSearchId, updateIsDisabled } = counterSlice.actions
+export const { updateIsSearch2, updateIsMobile, updateSearchText, updateIsSearch, updateSearchId, clearSearchId, updateSearchResults, updateNoSearchId, clearNoSearchId, updateIsDisabled } = counterSlice.actions
 
 export default counterSlice.reducer
