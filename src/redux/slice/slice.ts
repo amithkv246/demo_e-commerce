@@ -2,36 +2,23 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface CounterState {
-    // value: number;
     isMobile: boolean,
     searchText: string,
     isSearch: boolean,
-    searchId: number[],
-    noSearchId: number[],
-    searchResults: Product[],
     isDisabled: boolean,
-    isSearch2: boolean,
 }
 
 const initialState: CounterState = {
-    // value: 0,
     isMobile: false,
     searchText: "",
     isSearch: false,
-    searchId: [],
-    noSearchId: [],
-    searchResults: [],
     isDisabled: false,
-    isSearch2: false,
 }
 
 export const counterSlice = createSlice({
     name: 'counter',
     initialState,
     reducers: {
-        updateIsSearch2: (state, action: PayloadAction<boolean>) => {
-            state.isSearch2 = action.payload
-        },
 
         updateSearchText: (state, action: PayloadAction<string>) => {
             state.searchText = action.payload
@@ -45,43 +32,14 @@ export const counterSlice = createSlice({
             state.isSearch = action.payload
         },
 
-        updateSearchId: (state, action: PayloadAction<number>) => {
-            state.searchId = [...state.searchId, action.payload]
-        },
-        updateSearchResults: (state, action: PayloadAction<Product[]>) => {
-            state.searchResults = action.payload
-        },
-        clearSearchId: (state) => {
-            state.searchId = []
-        },
-        updateNoSearchId: (state, action: PayloadAction<number>) => {
-            state.noSearchId = ([...state.noSearchId, action.payload])
-        },
-        clearNoSearchId: (state) => {
-            state.noSearchId = []
-        },
         updateIsDisabled: (state, action: PayloadAction<boolean>) => {
             state.isDisabled = action.payload
         },
-
-        // increment: (state) => {
-        //     // Redux Toolkit allows us to write "mutating" logic in reducers. It
-        //     // doesn't actually mutate the state because it uses the Immer library,
-        //     // which detects changes to a "draft state" and produces a brand new
-        //     // immutable state based off those changes
-        //     state.value += 1
-        // },
-        // decrement: (state) => {
-        //     state.value -= 1
-        // },
-        // incrementByAmount: (state, action: PayloadAction<number>) => {
-        //     state.value += action.payload
-        // },
 
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { updateIsSearch2, updateIsMobile, updateSearchText, updateIsSearch, updateSearchId, clearSearchId, updateSearchResults, updateNoSearchId, clearNoSearchId, updateIsDisabled } = counterSlice.actions
+export const { updateIsMobile, updateSearchText, updateIsSearch, updateIsDisabled } = counterSlice.actions
 
 export default counterSlice.reducer

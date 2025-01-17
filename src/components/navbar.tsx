@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -8,7 +8,7 @@ import ButtonCom from './button';
 import InputGroupCom from './inputGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store/store';
-import { clearNoSearchId, clearSearchId, updateIsDisabled, updateIsSearch, updateSearchText } from '../redux/slice/slice';
+import { updateIsDisabled, updateIsSearch, updateSearchText } from '../redux/slice/slice';
 
 interface NavbarComProps {
   handleCartButton?: () => void;
@@ -19,37 +19,26 @@ const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick })
 
   const isMobile = useSelector((state: RootState) => state.counter.isMobile)
   const searchText = useSelector((state: RootState) => state.counter.searchText)
-  const [tempSearchText, setTempSearchText] = useState<string>("")
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (tempSearchText === "") {
+    if (searchText !== "") {
+      dispatch(updateIsSearch(true))
+    } else {
       dispatch(updateIsSearch(false))
     }
-  }, [tempSearchText, searchText])
+  })
 
   function handleOnClick() {
-    if (tempSearchText !== "") {
-      dispatch(updateSearchText(tempSearchText))
-    }
+    //navigate to searchPage.
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key == "Backspace") {
-      dispatch(clearSearchId())
-      dispatch(clearNoSearchId())
-    } else if (e.key == "Enter") {
-      handleOnClick();
-    }
+    e.key == "Enter" ? handleOnClick() : null
   }
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
-    // if (e.target.value !== "") {
-    //   dispatch(updateSearchText(e.target.value))
-    // } does not work completely
-    setTempSearchText(e.target.value)
-    dispatch(clearSearchId())
-    dispatch(clearNoSearchId())
+    dispatch(updateSearchText(e.target.value))
   }
 
   useEffect(() => {
@@ -68,7 +57,7 @@ const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick })
             <Navbar.Brand role='button' className='text-warning fs-1 fw-bold' onClick={handleBrandonClick}><span className='text-primary'>Quick</span>Mart</Navbar.Brand>
             {
               !isMobile &&
-              <InputGroupCom style={{ minWidth: "500px" }} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => handleKeyDown(e)} onClick={handleOnClick} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleOnChange(e)} value={tempSearchText} type='text' placeholder='Search for Products, Brands and More' bs='mt-3 mb-3 shadow-none' />
+              <InputGroupCom style={{ minWidth: "500px" }} onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => handleKeyDown(e)} onClick={handleOnClick} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleOnChange(e)} value={searchText} type='text' placeholder='Search for Products, Brands and More' bs='mt-3 mb-3 shadow-none' />
             }
           </div>
           <div>

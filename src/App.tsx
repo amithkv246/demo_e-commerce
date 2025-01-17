@@ -3,13 +3,10 @@ import './App.css'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import HomePage from './pages/homePage'
 import CartPage from './pages/cartPage'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateIsMobile, updateIsSearch, updateNoSearchId, updateSearchId } from './redux/slice/slice'
-import { RootState } from './redux/store/store'
+import { useDispatch } from 'react-redux'
+import { updateIsMobile } from './redux/slice/slice'
 
 function App() {
-
-  const searchText = useSelector((state: RootState) => state.counter.searchText)
 
   const [products, setProducts] = useState<Product[]>([])
   const [isMob, setIsMob] = useState<boolean>(false)
@@ -78,19 +75,6 @@ function App() {
     const newArray2 = cartDetails.filter((itm) => itm.id !== item.id)
     setCartDetails(newArray2)
   }
-
-  useEffect(() => {
-    for (let i = 0; i < products.length; i++) {
-      if ((products[i].title && products[i].title?.toLowerCase().includes(searchText.toLowerCase())) ||
-        (products[i].description && products[i].description?.toLowerCase().includes(searchText.toLowerCase()))
-      ) {
-        dispatch(updateIsSearch(true))
-        dispatch(updateSearchId(products[i].id))
-      } else {
-        dispatch(updateNoSearchId(products[i].id))
-      }
-    }
-  }, [searchText])
 
   return (
     <>
