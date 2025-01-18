@@ -4,7 +4,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import HomePage from './pages/homePage'
 import CartPage from './pages/cartPage'
 import { useDispatch } from 'react-redux'
-import { updateIsMobile } from './redux/slice/slice'
+import { updateIsMobile, updateIsSearch, updateIsSorted, updateSearchText } from './redux/slice/slice'
 
 function App() {
 
@@ -67,6 +67,9 @@ function App() {
   // cartPage
   const handleBrandonClick = () => {
     navigate("/")
+    dispatch(updateIsSearch(false))
+    dispatch(updateIsSorted(false))
+    dispatch(updateSearchText(""))
   }
 
   function handleRemoveCartDetails(item: Product) { //remove from cart btn
@@ -79,7 +82,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path={"/"} element={<HomePage products={products} handleCartButton={handleCartButton} handleSetCartDetails={handleSetCartDetails} id={id} />} />
+        <Route path={"/"} element={<HomePage products={products} handleBrandonClick={handleBrandonClick} handleCartButton={handleCartButton} handleSetCartDetails={handleSetCartDetails} id={id} />} />
         <Route path={"/Cart"} element={<CartPage handleBrandonClick={handleBrandonClick} handleRemoveCartDetails={handleRemoveCartDetails} cartDetails={cartDetails} />} />
       </Routes>
     </>

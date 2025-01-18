@@ -6,6 +6,8 @@ export interface CounterState {
     searchText: string,
     isSearch: boolean,
     isDisabled: boolean,
+    isSorted: boolean,
+    sortColor: string,
 }
 
 const initialState: CounterState = {
@@ -13,6 +15,8 @@ const initialState: CounterState = {
     searchText: "",
     isSearch: false,
     isDisabled: false,
+    isSorted: false,
+    sortColor: "",
 }
 
 export const counterSlice = createSlice({
@@ -36,10 +40,17 @@ export const counterSlice = createSlice({
             state.isDisabled = action.payload
         },
 
+        updateIsSorted: (state, action: PayloadAction<boolean>) => {
+            state.isSorted = action.payload
+        },
+        updateSortColor: (state, action: PayloadAction<string>) => {
+            state.sortColor = action.payload
+        },
+
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { updateIsMobile, updateSearchText, updateIsSearch, updateIsDisabled } = counterSlice.actions
+export const { updateIsMobile, updateSearchText, updateIsSearch, updateIsDisabled, updateIsSorted, updateSortColor } = counterSlice.actions
 
 export default counterSlice.reducer

@@ -8,7 +8,7 @@ import ButtonCom from './button';
 import InputGroupCom from './inputGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store/store';
-import { updateIsDisabled, updateIsSearch, updateSearchText } from '../redux/slice/slice';
+import { updateIsDisabled, updateIsSearch, updateIsSorted, updateSearchText, updateSortColor } from '../redux/slice/slice';
 
 interface NavbarComProps {
   handleCartButton?: () => void;
@@ -27,10 +27,12 @@ const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick })
     } else {
       dispatch(updateIsSearch(false))
     }
-  })
+  }, [searchText])
 
   function handleOnClick() {
     //navigate to searchPage.
+    dispatch(updateIsSorted(false))
+    dispatch(updateSortColor("secondary"))
   }
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -39,6 +41,7 @@ const NavbarCom: FC<NavbarComProps> = ({ handleCartButton, handleBrandonClick })
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     dispatch(updateSearchText(e.target.value))
+    dispatch(updateIsSorted(false))
   }
 
   useEffect(() => {

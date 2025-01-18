@@ -12,22 +12,21 @@ interface HomePageProps {
   handleCartButton: () => void;
   handleSetCartDetails: (item: Product) => void;
   id: number[];
+  handleBrandonClick: () => void;
 }
 
-const HomePage: FC<HomePageProps> = ({ products, handleCartButton, handleSetCartDetails, id }) => {
+const HomePage: FC<HomePageProps> = ({ products, handleCartButton, handleSetCartDetails, id, handleBrandonClick }) => {
 
   const { isMobile, searchText, isSearch } = useSelector((state: RootState) => state.counter)
 
   return (
     <>
-      <NavbarCom handleCartButton={handleCartButton} />
+      <NavbarCom handleCartButton={handleCartButton} handleBrandonClick={handleBrandonClick} />
       {
         isSearch ?
           <div className={isMobile ? "ps-5" : "container me-0"} >
             <Heading2 value={`Search results for " ${searchText} "`} />
-            <div className={isMobile ? "d-flex flex-column gap-3 justify-content-center" : "d-flex flex-row flex-wrap gap-3 justify-content-start"} >
-              <Search products={products} searchText={searchText} handleSetCartDetails={handleSetCartDetails} id={id} />
-            </div>
+            <Search products={products} searchText={searchText} handleSetCartDetails={handleSetCartDetails} id={id} />
           </div>
           :
           <div className={isMobile ? "ps-5" : "container me-0"} style={{ minHeight: "17vh" }} >
