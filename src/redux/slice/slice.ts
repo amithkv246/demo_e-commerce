@@ -3,6 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface CounterState {
     isMobile: boolean,
+    isTablet: boolean,
     searchText: string,
     isSearch: boolean,
     isDisabled: boolean,
@@ -12,6 +13,7 @@ export interface CounterState {
 
 const initialState: CounterState = {
     isMobile: false,
+    isTablet: false,
     searchText: "",
     isSearch: false,
     isDisabled: false,
@@ -28,10 +30,6 @@ export const counterSlice = createSlice({
             state.searchText = action.payload
         },
 
-        updateIsMobile: (state, action: PayloadAction<boolean>) => {
-            state.isMobile = action.payload
-        },
-
         updateIsSearch: (state, action: PayloadAction<boolean>) => {
             state.isSearch = action.payload
         },
@@ -43,14 +41,23 @@ export const counterSlice = createSlice({
         updateIsSorted: (state, action: PayloadAction<boolean>) => {
             state.isSorted = action.payload
         },
+
         updateSortColor: (state, action: PayloadAction<string>) => {
             state.sortColor = action.payload
+        },
+
+        updateIsMobile: (state, action: PayloadAction<boolean>) => {
+            state.isMobile = action.payload
+        },
+
+        updateIsTablet: (state, action: PayloadAction<boolean>) => {
+            state.isTablet = action.payload
         },
 
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { updateIsMobile, updateSearchText, updateIsSearch, updateIsDisabled, updateIsSorted, updateSortColor } = counterSlice.actions
+export const { updateIsMobile, updateIsTablet, updateSearchText, updateIsSearch, updateIsDisabled, updateIsSorted, updateSortColor } = counterSlice.actions
 
 export default counterSlice.reducer

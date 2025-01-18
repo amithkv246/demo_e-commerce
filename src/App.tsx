@@ -4,12 +4,13 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import HomePage from './pages/homePage'
 import CartPage from './pages/cartPage'
 import { useDispatch } from 'react-redux'
-import { updateIsMobile, updateIsSearch, updateIsSorted, updateSearchText } from './redux/slice/slice'
+import { updateIsMobile, updateIsSearch, updateIsSorted, updateIsTablet, updateSearchText } from './redux/slice/slice'
 
 function App() {
 
   const [products, setProducts] = useState<Product[]>([])
   const [isMob, setIsMob] = useState<boolean>(false)
+  const [isTab, setIsTab] = useState<boolean>(false)
   const [cartDetails, setCartDetails] = useState<Product[]>([])
   const [id, setId] = useState<number[]>([])
 
@@ -25,7 +26,10 @@ function App() {
   // }, [])
 
   useEffect(() => {
-    const checkWidth = () => setIsMob(document.documentElement.clientWidth <= 600)
+    const checkWidth = () => {
+      const screenWidth = document.documentElement.clientWidth
+      setIsMob(screenWidth >= 576 && screenWidth < 768)
+    }
     checkWidth();
     window.addEventListener("resize", checkWidth);
     return () => {
@@ -34,9 +38,28 @@ function App() {
   }, [])
 
   useEffect(() => {
-    // console.log("clientWidth : " + document.documentElement.clientWidth + " , isMobile : " + isMob);
+    const checkWidth = () => {
+      const screenWidth = document.documentElement.clientWidth
+      setIsTab(screenWidth >= 768 && screenWidth < 992)
+    }
+    checkWidth();
+    window.addEventListener("resize", checkWidth);
+    return () => {
+      window.removeEventListener("resize", checkWidth);
+    }
+  }, [])
+
+  useEffect(() => {
+    console.log("clientWidth : " + document.documentElement.clientWidth + " , isMobile : " + isMob);
     dispatch(updateIsMobile(isMob))
   }, [isMob])
+
+  useEffect(() => {
+    console.log("clientWidth : " + document.documentElement.clientWidth + " , isTablet : " + isTab);
+    dispatch(updateIsTablet(isTab))
+  }, [isTab])
+
+  //Responsive design breakpoint checking ABOVE^^^
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
