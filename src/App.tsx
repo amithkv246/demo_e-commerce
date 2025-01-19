@@ -28,7 +28,7 @@ function App() {
   useEffect(() => {
     const checkWidth = () => {
       const screenWidth = document.documentElement.clientWidth
-      setIsMob(screenWidth >= 576 && screenWidth < 768)
+      setIsMob(screenWidth < 768) //screenWidth >= 576 && screenWidth < 768
     }
     checkWidth();
     window.addEventListener("resize", checkWidth);
