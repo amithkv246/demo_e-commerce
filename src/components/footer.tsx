@@ -7,51 +7,161 @@ interface FooterComProps {
 
 const FooterCom: FC<FooterComProps> = ({ }) => {
 
-  const isMobile = useSelector((state: RootState) => state.counter.isMobile)
+  const { isMobile, isTablet } = useSelector((state: RootState) => state.counter)
 
   return (
     <>
-      <footer className='mt-5'>
-        <div className={isMobile ? "d-flex flex-column gap-3 justify-content-center p-5 bg-dark text-light" : "d-flex flex-row justify-content-around p-5 bg-dark text-light"} >
-          <div className='ps-5 pe-5'>
-            <p className='mb-4 text-secondary fw-bold fs-5'>ABOUT</p>
-            <p>Contact us</p>
-            <p>About us</p>
-            <p>Careers</p>
-            <p>Corporate information</p>
+
+      {/* --------------------------------------Desktop------------------------------------------ */}
+
+      {
+        !isTablet &&
+        !isMobile &&
+        <footer className='mt-5'>
+          <div className="d-flex flex-row justify-content-around p-5 bg-dark text-light" >
+            <div className='ps-5 pe-5'>
+              <p className='mb-4 text-secondary fw-bold fs-5'>ABOUT</p>
+              <p>Contact us</p>
+              <p>About us</p>
+              <p>Careers</p>
+              <p>Corporate information</p>
+            </div>
+
+            <div className='border-end border-light'></div>
+
+            <div className='ps-5 pe-5'>
+              <p className='mb-4 text-secondary fw-bold fs-5'>GROUP COMPANIES</p>
+              <p>Myntra</p>
+              <p>Cleartrip</p>
+              <p>Shopsy</p>
+            </div>
+
+            <div className='border-end border-light'></div>
+
+            <div className='ps-5 pe-5'>
+              <p className='mb-4 text-secondary fw-bold fs-5'>HELP</p>
+              <p>Payments</p>
+              <p>Shipping</p>
+              <p>Cancellation & Returns</p>
+              <p>FAQ</p>
+            </div>
+
+            <div className='border-end border-light'></div>
+
+            <div className='ps-5 pe-5'>
+              <p className='mb-4 text-secondary fw-bold fs-5'>CONSUMER POLICY</p>
+              <p>Cancellation & Returns</p>
+              <p>Terms Of Use</p>
+              <p>Security</p>
+              <p>Privacy</p>
+              <p>Sitemap</p>
+            </div>
           </div>
+        </footer>
+      }
 
-          <div className='border-end border-light'></div>
+      {/* --------------------------------------Tablet------------------------------------------ */}
 
-          <div className='ps-5 pe-5'>
-            <p className='mb-4 text-secondary fw-bold fs-5'>GROUP COMPANIES</p>
-            <p>Myntra</p>
-            <p>Cleartrip</p>
-            <p>Shopsy</p>
+      {
+        isTablet &&
+        <footer className='mt-5 bg-dark text-light d-flex flex-column pb-4'>
+          <div className="d-flex flex-row justify-content-around p-5 pb-0" >
+            <div className='d-flex flex-column gap-4 pb-2'>
+              <div className='ps-5 pe-5'>
+                <p className='mb-4 text-secondary fw-bold fs-5'>ABOUT</p>
+                <p>Contact us</p>
+                <p>About us</p>
+                <p>Careers</p>
+                <p>Corporate information</p>
+              </div>
+
+              <div className='border-bottom border-light'></div>
+
+              <div className='ps-5 pe-5'>
+                <p className='mb-4 text-secondary fw-bold fs-5'>GROUP COMPANIES</p>
+                <p>Myntra</p>
+                <p>Cleartrip</p>
+                <p>Shopsy</p>
+              </div>
+            </div>
+
+            <div className='border-end border-light'></div>
+
+            <div className='d-flex flex-column gap-4 pb-2'>
+              <div className='ps-5 pe-5'>
+                <p className='mb-4 text-secondary fw-bold fs-5'>HELP</p>
+                <p>Payments</p>
+                <p>Shipping</p>
+                <p>Cancellation & Returns</p>
+                <p>FAQ</p>
+              </div>
+
+              <div className='border-bottom border-light'></div>
+
+              <div className='ps-5 pe-5'>
+                <p className='mb-4 text-secondary fw-bold fs-5'>CONSUMER POLICY</p>
+                <p>Cancellation & Returns</p>
+                <p>Terms Of Use</p>
+                <p>Security</p>
+                <p>Privacy</p>
+                <p>Sitemap</p>
+              </div>
+            </div>
           </div>
+          <div className='border-bottom border-light'></div>
+        </footer>
+      }
 
-          <div className='border-end border-light'></div>
+      {/* --------------------------------------------Mobile------------------------------------------------ */}
 
-          <div className='ps-5 pe-5'>
-            <p className='mb-4 text-secondary fw-bold fs-5'>HELP</p>
-            <p>Payments</p>
-            <p>Shipping</p>
-            <p>Cancellation & Returns</p>
-            <p>FAQ</p>
+      {
+        isMobile &&
+        <footer className='bg-dark text-light mt-5 p-5 pb-4'>
+          <div className="d-flex flex-column gap-4" >
+            <div className='ps-5 pe-5'>
+              <p className='mb-4 text-secondary fw-bold fs-5'>ABOUT</p>
+              <p>Contact us</p>
+              <p>About us</p>
+              <p>Careers</p>
+              <p>Corporate information</p>
+            </div>
+
+            <div className='border-bottom border-light'></div>
+
+            <div className='ps-5 pe-5'>
+              <p className='mb-4 text-secondary fw-bold fs-5'>GROUP COMPANIES</p>
+              <p>Myntra</p>
+              <p>Cleartrip</p>
+              <p>Shopsy</p>
+            </div>
+
+            <div className='border-bottom border-light'></div>
+
+            <div className='ps-5 pe-5'>
+              <p className='mb-4 text-secondary fw-bold fs-5'>HELP</p>
+              <p>Payments</p>
+              <p>Shipping</p>
+              <p>Cancellation & Returns</p>
+              <p>FAQ</p>
+            </div>
+
+            <div className='border-bottom border-light'></div>
+
+            <div className='ps-5 pe-5'>
+              <p className='mb-4 text-secondary fw-bold fs-5'>CONSUMER POLICY</p>
+              <p>Cancellation & Returns</p>
+              <p>Terms Of Use</p>
+              <p>Security</p>
+              <p>Privacy</p>
+              <p>Sitemap</p>
+            </div>
+
+            <div className='border-bottom border-light'></div>
+
           </div>
+        </footer>
+      }
 
-          <div className='border-end border-light'></div>
-
-          <div className='ps-5 pe-5'>
-            <p className='mb-4 text-secondary fw-bold fs-5'>CONSUMER POLICY</p>
-            <p>Cancellation & Returns</p>
-            <p>Terms Of Use</p>
-            <p>Security</p>
-            <p>Privacy</p>
-            <p>Sitemap</p>
-          </div>
-        </div>
-      </footer>
     </>
   );
 };
